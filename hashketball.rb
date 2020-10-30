@@ -143,20 +143,20 @@ end
 
 
 
-
-
-
 def player_numbers(team)
   jersey_numbers = []
-   game_hash.each do |home_away, team_info|
-     team_info[:players].each do |stats|
-      if team_info[:team_name] == team
-       jersey_numbers << stats[:number]
-     end
+  game_hash.each do |key, value|
+    value[:players].each do |stats|
+      if value[:team_name] == team
+        jersey_numbers << stats[:number]
+      end
     end
   end
-jersey_numbers
+  return jersey_numbers
 end
+
+
+
 
 
 def team_names
@@ -200,30 +200,44 @@ end
 def shoe_size(player)
   size = 0
   game_hash.each do |home_away, team_info|
-  team_info[:players].each do |stats|
-    if stats[:player_name] == player
-      size = stats[:shoe]
-    end
+    team_info[:players].each do |stats|
+      if stats[:player_name] == player
+        size = stats[:shoe]
+   end
   end
-end
+ end
  size 
 end
 
 
 
-
-
 def player_stats(name)
+  game_hash.each do |key, value|
+    value[:players].each do |stats|
+      if name == stats[:player_name]
+        return stats
+      end
+    end
+  end
+end
+    
 
-game_hash.each do |key, value|
-value[:players].each do |player_name|
-  if name == player_name[:player_name]
- return player_name
+def most_points_scored
+  points = 0
+  player_name = []
+  game_hash.each do |home_away, team_info|
+    team_info[:players].each do |stats|
+      if stats[:points] > points
+        points = stats[:points]
+       player_name << stats[:player_name]
+      end
+    end
   end
-  end
-  
-  end
- 
+ player_name
 end
 
+
+
+        
+        
 
